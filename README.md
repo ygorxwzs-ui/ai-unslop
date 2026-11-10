@@ -39,15 +39,27 @@ AI-Unslop helps coding agents audit and refine generic-looking interfaces withou
 
 ### 1. Install the skill
 
-Clone the repository into the global skill directory:
+Install with the [Skills CLI](https://github.com/vercel-labs/skills) (Node.js 22.20 or later):
 
 ```sh
-git clone https://github.com/ygorxwzs-ui/ai-unslop.git ~/.agents/skills/ai-unslop
+npx skills add ygorxwzs-ui/ai-unslop
 ```
 
-Already have that directory? Update or inspect the existing installation instead of cloning over it.
+For a global OpenCode installation without interactive prompts:
 
-Place the entire directory at `~/.agents/skills/ai-unslop/`, a global compatibility location recognized by OpenCode V2. No npm package, API, MCP server, or configuration change is required for the skill itself.
+```sh
+npx skills add ygorxwzs-ui/ai-unslop --skill ai-unslop --agent opencode -g -y
+```
+
+To inspect available skills without installing:
+
+```sh
+npx skills add ygorxwzs-ui/ai-unslop --list
+```
+
+No separate npm package, API key, or MCP server is needed for AI-Unslop. The CLI downloads the skill from this repository. The default scope is the current project; `-g` makes it available across projects. Inspect an existing manual installation before replacing it.
+
+For manual installation, place the entire directory at `~/.agents/skills/ai-unslop/`, a global compatibility location recognized by OpenCode V2.
 
 For project distribution, place it at `.opencode/skills/ai-unslop/`. Avoid divergent versions with the same ID: project sources can override global sources. Other Agent Skills clients may use the package according to their own discovery rules.
 
@@ -120,18 +132,6 @@ Understand -> Inspect -> Observe -> Triage -> Refine -> Verify
 | [references/implementation.md](references/implementation.md) | Adaptable semantic, CSS, and state recipes. |
 | [references/verification.md](references/verification.md) | Delivery checklist and agent evaluation scenarios. |
 | [references/sources.md](references/sources.md) | Research references and standards/heuristics distinction. |
-
-<details>
-<summary><strong>Scope, safeguards, and numbering</strong></summary>
-
-
-- The original list contained 19 items, numbered 1 through 18 and then 20. IDs are preserved without inventing a missing item.
-- Original typos were normalized to "filler badges", "redundant labels", "main feature", and "make headlines specific".
-- Rules are conditional: preserve accessible labels and legitimate branding; do not impose libraries or rewrite business rules.
-- Research supports recommendations; it does not prove conversion improvements or certify WCAG conformance.
-- No scripts or dependencies: contextual judgment is essential. Regex-based removal of decorative classes can erase useful information or behavior.
-
-</details>
 
 ## Roadmap
 
