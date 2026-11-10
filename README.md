@@ -27,6 +27,9 @@ AI-Unslop helps coding agents audit and refine generic-looking interfaces withou
 | Empty badges and vague promises | Specific copy and verifiable information |
 | Decorative mockups hiding the feature | A clear view of the actual product |
 | Every card and button competing | Intentional hierarchy and a clear primary action |
+| Boxes inside boxes and oversized CTA slabs | Purposeful boundaries, natural proportions, and spacing-led groups |
+| Tall sections with almost nothing to say | Content-proportional spacing and useful, verified information |
+| Labels and links floating without clear alignment | Shared column anchors, coherent groups, and consistent spacing |
 | Random fonts, icons, and spacing | Consistent existing tokens and components |
 | Silent clicks and endless skeletons | Honest loading, success, and recovery states |
 
@@ -77,6 +80,16 @@ from behavior and accessibility that cannot be established from an image.
 ## The principles
 
 **19 practical rules. No universal aesthetic.** Each rule includes implementation guidance, exceptions, and acceptance criteria in [the full reference](references/principles.md).
+
+**Less overboxing, not just fewer rounded cards.** Watch for nested image frames, unnecessarily boxed action groups, oversized rectangular buttons, and repetitive square tiles. Remove unjustified boundaries before tweaking corner radii; preserve functional cards and intentional geometric branding.
+
+**Breathing room, not empty acreage.** A heading, a sentence, and a repeated CTA should not become an oversized section by default. Right-size the layout, merge redundant blocks, and add substance only when it is relevant and verified. Never trade whitespace for invented facts or filler.
+
+**Anchored, not floating.** Related labels, values, icons, and links need shared alignment and predictable spacing. Fix the container and group structure before optical nudges; do not center everything or add cards to hide a broken layout.
+
+**Align the frame, the subject, and the caption deliberately.** Matching image boxes do not guarantee consistent product scale or framing. Choose crops and focal positions for the actual assets, preserve essential details, and keep captions aligned without distorting images.
+
+**Selection is not another card.** Native text highlights can have stepped rectangular edges. Preserve selection and copying; fix real contrast, clipping, or typography problems instead of hiding browser feedback or inventing custom highlight boxes.
 
 | Focus | Principles |
 | --- | --- |
@@ -140,6 +153,7 @@ Keep the entry point concise and detailed guidance in references. Before publica
 <summary><strong>Version history</strong></summary>
 
 
+- **1.0.2 - 2026-11-10:** added overboxing, information-density, structural/image-alignment, and text-selection guidance; proportional CTA checks; screenshot-annotation safeguards; and eleven behavioral evaluation scenarios.
 - **1.0.1 - 2026-11-09:** translated every document, prompt, comment, and UI example into English; clarified usefulness/accessibility as joint release conditions; corrected source attribution for numeric typography and CTA guidance; added a proposed improvement roadmap.
 - **1.0.0 - 2026-11-09:** created 19 revised principles, audit/implementation instructions, recipes, acceptance criteria, references, and evaluation scenarios.
 

@@ -51,6 +51,50 @@ Every rule requires observation, a minimal correction, and validation. Numbers a
 - **Implement:** use `gap`, stacks, and logical properties with existing tokens. Keep within-group spacing smaller than between-group spacing. Preserve DOM order when stacking on mobile.
 - **Accept:** headings stay close to the content they introduce. Retain borders/surfaces when needed for interaction, tables, or contrast rather than removing them automatically [S4].
 
+### Recognize overboxing, not just excessive rounding
+
+Generic generated interfaces can overuse sharp rectangles just as easily as rounded cards. Diagnose the structure, not the model that produced it. Claims that a specific model routinely creates this pattern require separate evidence.
+
+Look for:
+
+- **Frames inside frames:** a section surface encloses a card, which encloses a padded image frame, which encloses a separately boxed caption without distinct functions.
+- **Oversized CTA slabs:** padding, width, or height makes a short action look like a banner or content card rather than a control.
+- **Boxed action groups:** a primary button and secondary link are wrapped in another bordered, filled, or excessively padded rectangle for no reason.
+- **Repeated rigid tiles:** unrelated content is forced into identical square cards or equal-height blocks regardless of its natural size and reading order.
+- **Arbitrary fixed geometry:** `aspect-ratio: 1`, fixed heights, or large minimum heights create empty space, crop important product details, or stretch simple navigation actions.
+
+For each visible boundary, ask: **Does it establish interaction, containment, status, or a meaningful group that spacing alone cannot communicate?** If not, try removing that boundary and its redundant padding. A layout wrapper may still be necessary for grid, positioning, or semantics; remove its unnecessary styling, not automatically the element.
+
+Start with shared alignment, natural content proportions, and spacing. Keep the main CTA prominent but proportionate to its label, touch target, and neighboring content. Let a secondary action remain visually secondary. Consider one meaningful boundary instead of several nested frames, but do not impose a universal border or card quota.
+
+**Accept:** product imagery has room to communicate, captions remain associated, actions still look actionable, and focus/contrast/touch targets survive. Sharp corners can be intentional; changing every rectangle to a pill is not a correction. Preserve justified cards, dialogs, data tables, image crops, and deliberate geometric branding.
+
+**Screenshot discipline:** distinguish user-drawn highlights from rendered UI. Red annotation rectangles are not proof that the site has red borders. Inspect code or an unannotated capture before making claims about actual borders, padding values, or click areas. A screenshot supports a visual hypothesis, not measured DOM geometry.
+
+### Match section size to information value
+
+Whitespace should clarify relationships, create emphasis, or support reading. It should not make a few generic sentences occupy several screens. The goal is appropriate information density, not maximum density or minimal whitespace.
+
+Look for:
+
+- **Thin sections stretched tall:** a heading, one short paragraph, and a link spread across a large section with no supporting information or deliberate visual role.
+- **Disconnected columns:** a short heading on the far left and one sentence on the far right, separated by a gap that weakens their relationship.
+- **Repeated thin CTA bands:** a full section repeats the previous section's sales message without answering another question or offering a distinct next step.
+- **Artificial height:** fixed heights, `min-height: 100vh`, excessive block padding, or large spacers unrelated to content and task.
+- **Sparse decision support:** a business page asks for contact while leaving out available, relevant buying information. Visual cleanliness is not a reason to hide facts people need.
+
+Use this order of correction:
+
+1. Identify the question the section should answer and the information actually available.
+2. Remove avoidable fixed/minimum heights and reduce disproportionate gaps/padding using existing tokens. Keep readable line lengths and accessible controls.
+3. Bring related copy closer; merge sections that repeat the same purpose, or remove a redundant CTA band. Keep distinct tasks separate when grouping is useful.
+4. Where the task needs more substance, add only verified, relevant material already provided or approved: product categories, specifications, ordering process, eligibility, delivery coverage, purchasing terms, or real product/company imagery.
+5. If necessary information is missing, request it or report the gap. Do not invent minimum orders, lead times, history, certifications, metrics, or testimonials. Do not replace empty space with decorative icons, cards, or generic paragraphs.
+
+**Accept:** each section answers a distinct useful question; its height follows its content and intentional role; users can scan connected information without unnecessary scrolling. Compare narrow/wide layouts and check that compression has not created crowding. Do not enforce a universal pixels-per-word ratio, section-height cap, or requirement to place everything above the fold.
+
+**Exceptions:** a focused hero, editorial pause, premium product presentation, accessible reading layout, or touch-first workflow may intentionally use generous space. Justify it by the product and task rather than a generic "minimalist" template. Treat screenshot observations as hypotheses; inspect CSS before blaming exact height or padding values.
+
 ## 09 - Make headlines specific
 
 - **Observe:** "Elevate your experience", "The future is here", or "Everything you need".
@@ -79,6 +123,7 @@ Every rule requires observation, a minimal correction, and validation. Numbers a
 
 - **Observe:** glows, blobs, particles, grids, frames, or shadows applied to every surface.
 - **Implement:** remove effects competing with content or hurting performance. Preserve intentional visual identity, affordances, focus, functional elevation, and necessary separation.
+- **Check rectangular decoration too:** a border, background panel, or thick image mat can be an embellishment even without shadows or rounded corners. Apply the overboxing diagnosis in principle 08 before adding another surface.
 - **Accept:** the task becomes clearer while the brand remains recognizable. Do not make the entire product gray or remove every border as dogma [S5, S6].
 
 ## 14 - Harmonize inner and outer radii
@@ -99,11 +144,61 @@ Every rule requires observation, a minimal correction, and validation. Numbers a
 - **Implement:** adjust reading width and type scale; try `text-wrap: balance` for short headings with normal wrapping as fallback. Avoid viewport-dependent `<br>` and `nowrap`; retain justified editorial breaks.
 - **Accept:** test loaded fonts, 320 CSS px, zoom, and longer/translated text. `ch` is approximate, not a guaranteed letter count. Balancing has browser and line-count limitations [S7].
 
+### Review text selection without mistaking it for a component
+
+Blue rectangles behind dragged-over text are normally the browser's selection highlight, not checkboxes, cards, or designed background panels. Different line lengths naturally produce stepped highlight edges. That alone is not a UI defect.
+
+- **Observe:** distinguish native selection from authored `::selection`, inline backgrounds, focus outlines, and screenshot annotations. Look for actual unreadable selected text, clipped accents/descenders, or unintended glyph collisions rather than assuming rectangular highlights are wrong.
+- **Inspect:** font loading, computed line-height, font metrics, nested inline spans, overflow, and selected/unselected states in supported browsers. Tight display typography may make highlight bands touch or overlap; screenshot appearance alone does not establish the cause or broken rendering.
+- **Implement:** fix demonstrated typography/clipping issues locally. If custom selection is requested and useful, use appropriate selection foreground/background tokens and verify their real contrast. Native selection is a valid default; styling it is not mandatory for a polished interface.
+- **Preserve:** copying, dragging to select, keyboard selection, visible focus, and forced-colors behavior. Never use `user-select: none`, transparent selection, blocked copy events, per-word wrappers, or custom JavaScript highlight overlays to hide the issue.
+- **Accept:** selected and unselected text remain readable at relevant zoom levels, long headings wrap correctly, and no text is unintentionally clipped. Compare selection within one line and across multiple lines; verify copying where possible. Browser-controlled selection geometry is not a CSS card to reshape with padding or border radius.
+
+See the [MDN selection reference](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/::selection) for supported properties and browser limitations. Brand consistency does not justify overriding useful platform behavior.
+
 ## 17 - Align optically, not just mathematically
 
 - **Observe:** play symbols, arrows, and logos look displaced despite centered boxes.
 - **Implement:** align structure with grid/flex and baselines; adjust the internal drawing or apply a small, justified local compensation. Respect the library's optical sizing before introducing transforms.
 - **Accept:** inspect at actual size with text, focus, and different pixel densities. Do not move the hit area or reading order to fix a silhouette. Never apply a universal "1 px fix" to every icon [S11].
+
+### Establish anchors before optical polish
+
+"Align by eye" does not mean freely positioning every element. First establish a coherent layout; optical compensation is the final local adjustment, not a substitute for structure.
+
+Look for:
+
+- **Floating groups:** a heading, address, phone number, and social link appear independently placed rather than belonging to recognizable columns or stacks.
+- **Drifting edges:** labels and their values start on slightly different axes because of inconsistent wrapper padding, default margins, or unrelated widths.
+- **Unexplained vertical offsets:** equivalent column headings start at different levels without content or brand justification.
+- **Inconsistent group rhythm:** label-to-value gaps and value-to-secondary-link gaps vary arbitrarily between comparable groups.
+- **Mixed text/icon alignment:** arrows and social icons align to unrelated boxes rather than the baseline or optical center appropriate to their labels.
+
+Correct the shared container and column structure first. Use grid/flex, explicit grouping, existing spacing tokens, and logical alignment. In a footer, treat identity, address, and contact as coherent groups; align comparable headings intentionally, keep each group's content on a shared inline-start edge, and place secondary links with their related content.
+
+Do not force a logo top edge, text baseline, and different-sized phone number onto one universal axis. Choose anchors appropriate to each relationship. Unequal column widths or asymmetric composition can be intentional; justify them instead of distributing every item equally across the available width.
+
+Then remove accidental local margins/padding and apply optical adjustments only where the drawing requires them. Do not repair structural drift using absolute positioning, arbitrary transforms, manual spaces, or extra cards. Preserve semantic elements such as address lists and navigation where appropriate.
+
+**Accept:** each element has an understandable relationship to a column, baseline, or content group; comparable groups follow a consistent rhythm; icons remain associated with their labels. Narrow layouts stack in a sensible DOM order without unexplained offsets. Check loaded fonts and zoom before claiming exact alignment. User-drawn red guide lines are evidence of the user's concern, not rendered UI boundaries or measured coordinates.
+
+### Decide what image alignment means
+
+Equal image rectangles do not guarantee comparable product presentation. Before changing CSS, distinguish:
+
+1. **Frame alignment:** media top/bottom edges, column widths, gutters, and alignment with the section container.
+2. **Subject alignment:** product scale, visible area, focal position, orientation, and background balance inside each source image.
+3. **Caption alignment:** image-to-title spacing, title/metadata baselines, and description flow when text wraps.
+
+Choose which relationships the section needs. A comparable catalog may benefit from similar product scale and focal placement; an editorial/lifestyle collection may intentionally mix compositions. In the supplied type of three-image collection, equal square frames can already be aligned while photographed subjects occupy very different positions. Describe that as a composition/normalization concern, not proof of a broken grid.
+
+Inspect source image dimensions, existing crops, and the product details people need to see. Use a justified shared aspect ratio for comparable frames; do not automatically force square images. Choose `contain` when the whole product must remain visible, accepting intentional surrounding space. Choose `cover` when cropping is appropriate and safe; verify each asset rather than relying on a universal center crop.
+
+Use approved per-image focal positions only when source framing needs them and existing media conventions support them. If CSS cannot achieve suitable composition without losing product details, request a better source image or approved crop. Never stretch an image, invent missing pixels, or imply that differently framed images are a fair size comparison.
+
+Keep headings and metadata associated with the correct image; define sensible wrapping instead of fixing all text heights or absolutely positioning captions. Reserve media space before image load, and inspect narrow layouts, long titles, and loading/error behavior where available.
+
+**Accept:** frame edges and gutters follow the intended grid, important product details remain visible, and scale/focal treatment is consistent enough for the section's task or intentionally varied. Captions remain coherent under wrapping. Do not add matching borders, arrows, fixed heights, or transforms merely to conceal inconsistent source photography.
 
 ## 18 - Add loading states
 

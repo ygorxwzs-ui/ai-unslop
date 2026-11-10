@@ -24,6 +24,8 @@ Supplements: [GOV.UK - Button](https://design-system.service.gov.uk/components/b
 
 ## Standards versus judgment
 
+Selection supplement: [MDN - ::selection](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/::selection) documents highlight styling, supported properties, inheritance, accessibility considerations, and browser limitations. Native highlight shape is not itself evidence of a layout defect.
+
 - **Standards:** applicable WCAG criteria and specified technology behavior. Understanding pages explain the standard; normative wording lives in the WCAG recommendation.
 - **Supported heuristics:** proximity, clear headings, product prioritization, and consistent iconography. Apply according to task, content, and brand; studies do not prove every interface will respond identically.
 - **Editorial synthesis:** removing empty badges, repeated labels, arbitrary italics/mono, and using accent/decorative effects intentionally. These are not style prohibitions or WCAG requirements.
